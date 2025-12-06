@@ -1,0 +1,13 @@
+//A graph is a sequence of adjacent lines
+//The first line must contain the number of vertices, and only this number
+//Other lines of the graph contain the source vertex, followed by a space, followed by the destination vertex
+//An empty line is the end of the current graph, and starts Tarjan's on the current graph
+//Comment lines start with a single slash
+//The input file can store multiple graphs
+4
+1 3
+3 2
+2 1
+4 2
+4 3
+
