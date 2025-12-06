@@ -4,10 +4,34 @@
 //An empty line is the end of the current graph, and starts Tarjan's on the current graph
 //Comment lines start with a single slash
 //The input file can store multiple graphs
-4
+//
+//graph 1
+10
 1 3
 3 2
 2 1
 4 2
 4 3
+4 5
+5 6
+6 2
+5 7
+7 8
+7 4
+8 9
+9 8
+10 10
+
+//graph 2: single path with cycle 1->2->3->4->1
+4
+1 2
+2 3
+3 4
+4 1
+
+//graph 3: single path no cycle 1->2->3->4
+4
+1 2
+2 3
+3 4
 
