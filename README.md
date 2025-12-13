@@ -1,5 +1,6 @@
 # CS375-Tarjans-Algorithm
 CS-375 Final Team Project - Kyle Sullivan, Connie Deng
+
 This program produces strongly connected components from graphs in input.txt, and outputs them to output.txt
 
 **Input and Ouput**
