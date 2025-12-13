@@ -2,6 +2,7 @@
 #include <vector>
 #include <stack>
 #include <fstream>
+#include <chrono>
 
 
 using namespace std;
@@ -12,7 +13,7 @@ vector<int> discoveryTime;
 vector<int> LOWLINK;
 vector<bool> isOnStack; //for quick a quick look
 stack<int> TarjanStack; 
-int index;
+int index = 1;
 vector<vector<int>> SCCResults;
 
 //DFS FUNCTION
@@ -55,14 +56,6 @@ void strongConnect(int v) {
     }
 }
 
-//seprate function here so its easier to feed it different adjacency lists
-//Kyle: no clue what this is for
-/*vector<vector<int>>tarjan(vector<vector<int>>& g) { 
-    int n = graph.size();
-    LOWLINK
-}*/
-
-
 int main(int argc, char* argv[]) {
     if (argc < 3) {
         cerr << "Usage: ./submission <input.txt> <output.txt>\n";
@@ -76,21 +69,21 @@ int main(int argc, char* argv[]) {
 	LOWLINK = vector<int>();
 	isOnStack = vector<bool>(); //for quick a quick look
 	TarjanStack = stack<int>(); 
-	index = 1;
 	SCCResults = vector<vector<int>>();
     
 	ifstream inputFile(argv[1]);
 	ofstream outputFile(argv[2]);
-	outputFile << "Let each line represent a different SCC, where the first node is the SCC root, and each sequence is the path from the root node\n";
 	string line;
 	while(getline(inputFile, line)){ //if graph array does not have enough rows, loop and add rows until satisfactory
-		//cout << "HERE\n";
 		if(line.empty()){ //end of a graph. Run Tarjans, ouput, then clear
+			auto start = chrono::high_resolution_clock::now();
 			for(size_t i = 0; i < discoveryTime.size(); i++){
 				if(discoveryTime[i] == 0){
 					strongConnect(i);
 				}
 			}
+			auto end = chrono::high_resolution_clock::now(); //Algorithm end time
+			auto duration = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
 			discoveryTime.clear();
 			graph.clear();
 			LOWLINK.clear();
@@ -105,7 +98,7 @@ int main(int argc, char* argv[]) {
 				}
 				outputFile << endl;
 			}
-			outputFile << endl;
+			outputFile << "Runtime: " << duration.count() << " nanoseconds\n\n";
 			SCCResults.clear();
 		}
 		else if(line.at(0) == '/'){ //comment
@@ -129,16 +122,6 @@ int main(int argc, char* argv[]) {
 			graph[sourceNode-1][destNode-1] = 1; //dont forget to ouput nodes + 1 I think
 		}
 	}
-	
-    
-    //TEST 1 ~ TREE
-    /*printf("-----TEST 1 ~ TREE STRUCTURE----");
-    vector<vector<int>> adjListTreeTest = {
-        {1,2},
-        {3,4},
-        {5,6}
-    };*/
 
-    //auto s2 = tarjan
 	return 0;
 }
